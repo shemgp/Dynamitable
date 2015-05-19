@@ -17,4 +17,8 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter());
 });
 
-gulp.task('default', ['minification', 'lint']);
+gulp.task('watch', function () {
+    gulp.watch(['dynamitable.jquery.js'], ['minification', 'lint']);
+});
+
+gulp.task('default', ['watch']);
