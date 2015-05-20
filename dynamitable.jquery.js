@@ -1,4 +1,4 @@
-(function($){ 'use strict';
+!function($){ 'use strict';
 
     $.fn.dynamitable = function(options) {
     
@@ -227,4 +227,4 @@
         ;
     });
 
-})(jQuery);
+}(jQuery);
