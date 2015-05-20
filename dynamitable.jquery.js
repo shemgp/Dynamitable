@@ -1,34 +1,68 @@
 (function($){ 'use strict';
 
     $.fn.dynamitable = function(options) {
-
+    
         /**********************************************
-         * private core
+         * dynamitable
          **********************************************/
         var dynamitable = this;
-
+        
+        /**********************************************
+         * dynamitableCore
+         **********************************************/
         var dynamitableCore = new (function($dynamitable) {
         
+            /**********************************************
+             * dynamitableCore.getIndex($field)
+             *
+             * get the index of a field
+             *
+             * return integer
+             **********************************************/
             this.getIndex = function($field) {
                 return $field.parents('tr').children('td, th').index($field);
             };
             
-            this.getParentIndex = function($field) {
-                return this.getIndex($field.parent('td, th'));
-            };
-            
+            /**********************************************
+             * dynamitableCore.getBody()
+             *
+             * get the body of the table
+             *
+             * return dom
+             **********************************************/
             this.getBody = function() {
                 return $dynamitable.find('tbody');
             };
             
+            /**********************************************
+             * dynamitableCore.getRows()
+             *
+             * get all row inside the body of the table
+             *
+             * return dom
+             **********************************************/
             this.getRows = function() {
                 return this.getBody().children('tr');
             };
             
+            /**********************************************
+             * dynamitableCore.getField(index, $row)
+             *
+             * get a field
+             *
+             * return dom
+             **********************************************/
             this.getField = function(index, $row) {
                 return $row.children('td, th').eq(index);
             };
             
+            /**********************************************
+             * dynamitableCore.getValue(index, $row)
+             *
+             * get a field value
+             *
+             * return string
+             **********************************************/
             this.getValue = function(index, $row) {
                 return this.getField(index, $row).text();
             };
@@ -54,14 +88,14 @@
         this.displayAll = function() {
 
             dynamitableCore.getRows().each(function() {
-                    $(this).show();
+                $(this).show();
             });
           
             return this;
         };
 
         /**********************************************
-         * dynamitable.filter()
+         * dynamitable.filter(index, matches)
          *
          * hide all <tr> that doen't martch
          *
@@ -84,7 +118,7 @@
         };
         
         /**********************************************
-         * dynamitable.addFilter
+         * dynamitable.addFilter(selector)
          *
          * add filter event on element inside the table heading
          *
@@ -106,7 +140,7 @@
                  
                     $(dynamitable).find(selector).each(function() {
                         var $this =  $(this);
-                        dynamitable.filter(dynamitableCore.getParentIndex($this), $this.val());  
+                        dynamitable.filter(dynamitableCore.getIndex($this.parent('td, th')), $this.val());  
                     });
                  
                  });
@@ -122,7 +156,7 @@
         }; 
         
         /**********************************************
-         * dynamitable.addSorter
+         * dynamitable.addSorter(selector, order)
          *
          * add soter event on element inside the table heading
          *
@@ -136,7 +170,7 @@
             $(dynamitable).find(selector).each(function() {
                 var $this = $(this);
                 
-                var index = dynamitableCore.getParentIndex($this);
+                var index = dynamitableCore.getIndex($this.parent('td, th'));
                 
                 $this.on('click', function() { dynamitable.sorter(index, order); });
             });
@@ -145,7 +179,7 @@
         }; 
     
         /**********************************************
-         * dynamitable.sorter
+         * dynamitable.sorter(index, order)
          *
          * - index (integer): index of the colum to sorter
          * - order (string)  : sorting order [asc, desc]
@@ -182,7 +216,7 @@
     };
     
     /**********************************************
-     * default dynamitable trigger
+     * Dynamitable trigger
      **********************************************/
     $(document).find('.js-dynamitable').each(function(){
     
