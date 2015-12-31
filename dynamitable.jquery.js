@@ -197,8 +197,8 @@
                 
                 // numeric order mode
                 if(value_a.replace(/[^\d-]/g, '') !== '' && value_b.replace(/[^\d-]/g, '') !== '') {
-                    value_a = parseFloat(value_a.replace(/[^\d,.-+]/g, ''));
-                    value_b = parseFloat(value_b.replace(/[^\d,.-+]/g, ''));
+                    value_a = parseFloat(value_a.replace(/[^\d,.\-\+]/g, ''));
+                    value_b = parseFloat(value_b.replace(/[^\d,.\-\+]/g, ''));
                 }
                 
                 if(value_a === value_b) {
