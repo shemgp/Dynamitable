@@ -31,7 +31,7 @@
              * return dom
              **********************************************/
             this.getBody = function() {
-                return $dynamitable.find('tbody');
+                return $dynamitable.children('tbody');
             };
             
             /**********************************************
